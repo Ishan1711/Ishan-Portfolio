@@ -1,9 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { SKILL_CATEGORIES } from "@/data/skills";
 
+type HoveredSkill = {
+  name: string;
+  category: string;
+  type: string;
+} | null;
+
 export function Capabilities() {
+  const [hoveredSkill, setHoveredSkill] = useState<HoveredSkill>(null);
+
   return (
     <section
       id="capabilities"
@@ -12,9 +21,9 @@ export function Capabilities() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
           
-          {/* Left Column - Sticky Heading */}
+          {/* Left Column - Sticky Heading & Interactive Preview */}
           <div className="lg:col-span-5 relative">
-            <div className="lg:sticky lg:top-32 flex flex-col justify-between h-full lg:h-[calc(100vh-16rem)] min-h-[50vh]">
+            <div className="lg:sticky lg:top-32 flex flex-col justify-between h-full lg:h-[calc(100vh-16rem)] min-h-[40vh] sm:min-h-[50vh]">
               <div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -40,7 +49,55 @@ export function Capabilities() {
                 </motion.h2>
               </div>
 
-
+              {/* Interactive Capability Preview Panel */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="mt-16 lg:mt-auto h-24 sm:h-32 flex flex-col justify-end"
+              >
+                <AnimatePresence mode="wait">
+                  {!hoveredSkill ? (
+                    <motion.div
+                      key="default"
+                      initial={{ opacity: 0, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, filter: "blur(4px)" }}
+                      transition={{ duration: 0.4 }}
+                      className="flex flex-col gap-2"
+                    >
+                      <span className="text-xs sm:text-sm tracking-[0.3em] text-zinc-500 uppercase font-semibold">
+                        SELECT A TECHNOLOGY
+                      </span>
+                      <span className="text-xs tracking-[0.2em] text-zinc-700 uppercase">
+                        TO EXPLORE
+                      </span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={hoveredSkill.name}
+                      initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                      exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                      transition={{ duration: 0.4 }}
+                      className="flex flex-col gap-2 sm:gap-3"
+                    >
+                      <span className="text-[10px] sm:text-xs tracking-[0.3em] text-zinc-500 uppercase font-semibold">
+                        {hoveredSkill.category}
+                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-2xl sm:text-3xl md:text-4xl font-light text-white tracking-tight">
+                          {hoveredSkill.name}
+                        </span>
+                        <span className="text-[10px] sm:text-xs tracking-[0.2em] text-zinc-400 uppercase mt-1 sm:mt-2">
+                          {hoveredSkill.type}
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
           </div>
 
@@ -62,6 +119,21 @@ export function Capabilities() {
                   {category.skills.map((skill, i) => (
                     <li
                       key={i}
+                      onMouseEnter={() =>
+                        setHoveredSkill({
+                          name: skill,
+                          category: category.title,
+                          type: category.type,
+                        })
+                      }
+                      onMouseLeave={() => setHoveredSkill(null)}
+                      onTouchStart={() =>
+                        setHoveredSkill({
+                          name: skill,
+                          category: category.title,
+                          type: category.type,
+                        })
+                      }
                       className="text-xl sm:text-2xl md:text-3xl text-zinc-400 font-light transition-colors duration-500 hover:text-white cursor-default group relative inline-block"
                     >
                       {skill}
