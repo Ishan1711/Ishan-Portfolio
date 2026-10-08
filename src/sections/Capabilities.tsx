@@ -16,14 +16,14 @@ export function Capabilities() {
   return (
     <section
       id="capabilities"
-      className="relative w-full bg-[#050505] text-white py-24 sm:py-32 lg:py-48 overflow-hidden selection:bg-white/20"
+      className="relative w-full bg-[#050505] text-white py-24 sm:py-32 lg:py-48 selection:bg-white/20"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
           
           {/* Left Column - Sticky Heading & Interactive Preview */}
           <div className="lg:col-span-5 relative">
-            <div className="lg:sticky lg:top-32 flex flex-col justify-between h-full lg:h-[calc(100vh-16rem)] min-h-[40vh] sm:min-h-[50vh]">
+            <div className="lg:sticky lg:top-32 flex flex-col justify-between min-h-[40vh] sm:min-h-[50vh] lg:min-h-0 lg:h-[calc(100vh-16rem)]">
               <div>
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
