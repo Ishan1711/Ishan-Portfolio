@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SKILL_CATEGORIES, SOFT_SKILLS } from "@/data/skills";
+import { SKILL_CATEGORIES } from "@/data/skills";
 
 export function Capabilities() {
   return (
@@ -40,28 +40,7 @@ export function Capabilities() {
                 </motion.h2>
               </div>
 
-              {/* Soft Skills Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                className="mt-20 lg:mt-auto"
-              >
-                <span className="text-[10px] tracking-widest text-zinc-600 uppercase font-semibold block mb-6">
-                  Core Traits
-                </span>
-                <ul className="flex flex-wrap gap-3">
-                  {SOFT_SKILLS.map((skill, i) => (
-                    <li
-                      key={i}
-                      className="text-[10px] sm:text-xs text-zinc-500 uppercase tracking-widest border border-zinc-900 px-4 py-2 rounded-full hover:border-zinc-700 hover:text-zinc-300 transition-colors duration-500 cursor-default"
-                    >
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
+
             </div>
           </div>
 
