@@ -774,16 +774,40 @@ export function BackgroundEnvironment() {
         prefersReducedMotion
       );
 
-      if (!prefersReducedMotion && isTabVisible) {
-        animationFrameId = requestAnimationFrame(renderFrame);
+    }
+
+    let isLoopRunning = false;
+
+    function startLoop() {
+      if (isLoopRunning || prefersReducedMotion || !isTabVisible) return;
+      isLoopRunning = true;
+      lastTime = performance.now();
+      animationFrameId = requestAnimationFrame(renderLoop);
+    }
+
+    function stopLoop() {
+      if (!isLoopRunning) return;
+      isLoopRunning = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
+    }
+
+    function renderLoop(now: number) {
+      if (!isLoopRunning) return;
+      renderFrame(now);
+      if (!prefersReducedMotion && isTabVisible && isLoopRunning) {
+        animationFrameId = requestAnimationFrame(renderLoop);
       }
     }
 
     const handleVisibilityChange = () => {
       isTabVisible = !document.hidden;
-      if (isTabVisible && !prefersReducedMotion) {
-        lastTime = performance.now();
-        renderFrame(lastTime);
+      if (isTabVisible) {
+        startLoop();
+      } else {
+        stopLoop();
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -791,11 +815,11 @@ export function BackgroundEnvironment() {
     if (prefersReducedMotion) {
       renderFrame(performance.now());
     } else {
-      animationFrameId = requestAnimationFrame(renderFrame);
+      startLoop();
     }
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopLoop();
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);

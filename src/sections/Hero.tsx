@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
 
 const STATEMENTS = [
@@ -13,6 +13,7 @@ const STATEMENTS = [
 export function Hero() {
   const [statementIndex, setStatementIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     let intervalId: ReturnType<typeof setInterval> | null = null;
@@ -54,7 +55,7 @@ export function Hero() {
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || typeof window === "undefined" || window.innerWidth < 768) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -113,9 +114,9 @@ export function Hero() {
         
         {/* Name Reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
           className="text-center"
         >
           <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-white leading-none drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
@@ -125,9 +126,9 @@ export function Hero() {
 
         {/* Role Reveal */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
           className="mt-6 sm:mt-8"
         >
           <h2 className="text-xs sm:text-sm md:text-base tracking-[0.4em] sm:tracking-[0.6em] text-zinc-300 font-semibold ml-[0.4em] sm:ml-[0.6em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
@@ -137,9 +138,9 @@ export function Hero() {
 
         {/* Dynamic Statements - Resilient against 2-line wraps on mobile */}
         <motion.div
-          initial={{ opacity: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, delay: 0.55 }}
           className="mt-10 sm:mt-16 min-h-[3.25rem] sm:min-h-[3.5rem] relative flex items-center justify-center w-full px-4"
         >
           <AnimatePresence mode="wait">
@@ -148,7 +149,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              transition={shouldReduceMotion ? { duration: 0.15 } : { duration: 0.8, ease: "easeInOut" }}
               className="absolute text-sm min-[380px]:text-base sm:text-xl md:text-2xl text-zinc-200 font-light text-center w-full max-w-2xl px-4 drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]"
             >
               {STATEMENTS[statementIndex]}
@@ -158,9 +159,9 @@ export function Hero() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 1.3 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.0, ease: [0.16, 1, 0.3, 1], delay: 0.85 }}
           className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto"
         >
           <a 
@@ -184,16 +185,16 @@ export function Hero() {
 
       {/* Scroll Indicator */}
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={shouldReduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.5, delay: 1.8 }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 1.2, delay: 1.2 }}
         className="absolute bottom-6 sm:bottom-12 flex flex-col items-center gap-2 sm:gap-3"
       >
         <span className="text-[10px] sm:text-xs tracking-[0.3em] text-zinc-400 font-medium ml-[0.3em]">
           SCROLL
         </span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
+          animate={shouldReduceMotion ? {} : { y: [0, 8, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         >
           <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400" />
