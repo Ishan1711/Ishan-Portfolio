@@ -16,9 +16,9 @@ export function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24 flex justify-center lg:justify-start"
+          className="mb-16 sm:mb-24 flex justify-center lg:justify-start"
         >
-          <span className="text-xs tracking-[0.4em] text-zinc-500 font-medium uppercase">
+          <span className="text-xs tracking-[0.4em] text-zinc-400 font-medium uppercase">
             05 / Education
           </span>
         </motion.div>
@@ -36,7 +36,7 @@ export function Education() {
               className="text-[12vw] sm:text-[10vw] lg:text-8xl font-extrabold tracking-tighter uppercase leading-[0.9]"
             >
               Academic<br />
-              <span className="text-zinc-700">Foundation</span>
+              <span className="text-zinc-400">Foundation</span>
             </motion.h2>
           </div>
 
@@ -47,7 +47,7 @@ export function Education() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-              className="relative p-8 sm:p-12 w-full max-w-xl border border-zinc-900 bg-[#080808]/50 backdrop-blur-sm group hover:border-zinc-700 transition-colors duration-700"
+              className="relative p-6 sm:p-8 md:p-12 w-full max-w-xl border border-zinc-900 bg-[#080808]/50 backdrop-blur-sm group hover:border-zinc-700 transition-colors duration-700"
             >
               {/* Corner Accents */}
               <div className="absolute top-0 left-0 w-2 h-[1px] bg-zinc-500" />
@@ -55,33 +55,33 @@ export function Education() {
               <div className="absolute bottom-0 right-0 w-2 h-[1px] bg-zinc-500" />
               <div className="absolute bottom-0 right-0 w-[1px] h-2 bg-zinc-500" />
               
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-6 sm:gap-8">
                 {/* Degree Title */}
                 <div>
-                  <h3 className="text-sm sm:text-base tracking-[0.3em] uppercase text-zinc-500 mb-2">
+                  <h3 className="text-xs sm:text-sm tracking-[0.3em] uppercase text-zinc-400 mb-2 font-medium">
                     Degree
                   </h3>
-                  <div className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-tight">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-white leading-tight">
                     B.Tech in Computer Science & Engineering
                   </div>
                 </div>
 
                 {/* University & CGPA */}
-                <div className="flex flex-col sm:flex-row gap-8 sm:gap-16 pt-8 border-t border-zinc-900 group-hover:border-zinc-800 transition-colors duration-700">
+                <div className="flex flex-col sm:flex-row gap-6 sm:gap-16 pt-6 sm:pt-8 border-t border-zinc-900 group-hover:border-zinc-800 transition-colors duration-700">
                   <div className="flex-1">
-                    <h4 className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-zinc-600 mb-2">
+                    <h4 className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-zinc-400 mb-1.5 font-medium">
                       Institution
                     </h4>
-                    <p className="text-sm sm:text-base font-medium text-zinc-300">
+                    <p className="text-sm sm:text-base font-medium text-zinc-200">
                       Lovely Professional University
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-zinc-600 mb-2">
+                    <h4 className="text-[10px] sm:text-xs tracking-[0.2em] uppercase text-zinc-400 mb-1.5 font-medium">
                       Performance
                     </h4>
                     <p className="text-xl sm:text-2xl font-bold text-white">
-                      8.59 <span className="text-sm text-zinc-500 font-normal">CGPA</span>
+                      8.59 <span className="text-sm text-zinc-400 font-normal">CGPA</span>
                     </p>
                   </div>
                 </div>

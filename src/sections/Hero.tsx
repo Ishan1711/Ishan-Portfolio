@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const STATEMENTS = [
   "I build what comes next.",
@@ -14,24 +13,53 @@ const STATEMENTS = [
 export function Hero() {
   const [statementIndex, setStatementIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-    const interval = setInterval(() => {
-      setStatementIndex((prev) => (prev + 1) % STATEMENTS.length);
-    }, 4000);
-    return () => clearInterval(interval);
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const startInterval = () => {
+      if (intervalId) return;
+      intervalId = setInterval(() => {
+        setStatementIndex((prev) => (prev + 1) % STATEMENTS.length);
+      }, 4000);
+    };
+
+    const stopInterval = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          startInterval();
+        } else {
+          stopInterval();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      stopInterval();
+      observer.disconnect();
+    };
   }, []);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    containerRef.current.style.setProperty("--mouse-x", `${x}px`);
+    containerRef.current.style.setProperty("--mouse-y", `${y}px`);
   };
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
@@ -72,15 +100,13 @@ export function Hero() {
         }}
       />
 
-      {/* Subtle pointer ambient effect */}
-      {isClient && (
-        <div 
-          className="pointer-events-none absolute inset-0 z-0 opacity-50 transition-opacity duration-700 ease-in-out"
-          style={{
-            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.025), transparent 40%)`
-          }}
-        />
-      )}
+      {/* Subtle pointer ambient effect without React state re-renders */}
+      <div 
+        className="pointer-events-none absolute inset-0 z-0 opacity-50 transition-opacity duration-700 ease-in-out"
+        style={{
+          background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.025), transparent 40%)`
+        }}
+      />
 
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full px-6 max-w-7xl mx-auto mt-[-8vh] sm:mt-[-5vh]">
@@ -109,12 +135,12 @@ export function Hero() {
           </h2>
         </motion.div>
 
-        {/* Dynamic Statements */}
+        {/* Dynamic Statements - Resilient against 2-line wraps on mobile */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
-          className="mt-12 sm:mt-16 h-8 sm:h-12 relative flex items-center justify-center w-full"
+          className="mt-10 sm:mt-16 min-h-[3.25rem] sm:min-h-[3.5rem] relative flex items-center justify-center w-full px-4"
         >
           <AnimatePresence mode="wait">
             <motion.p
@@ -123,7 +149,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute text-base sm:text-xl md:text-2xl text-zinc-200 font-light text-center w-full drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]"
+              className="absolute text-sm min-[380px]:text-base sm:text-xl md:text-2xl text-zinc-200 font-light text-center w-full max-w-2xl px-4 drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]"
             >
               {STATEMENTS[statementIndex]}
             </motion.p>
@@ -135,7 +161,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 1.3 }}
-          className="mt-16 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto"
+          className="mt-12 sm:mt-16 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto"
         >
           <a 
             href="#projects" 
@@ -161,16 +187,16 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, delay: 1.8 }}
-        className="absolute bottom-8 sm:bottom-12 flex flex-col items-center gap-3"
+        className="absolute bottom-6 sm:bottom-12 flex flex-col items-center gap-2 sm:gap-3"
       >
-        <span className="text-[10px] sm:text-xs tracking-[0.3em] text-zinc-600 font-medium ml-[0.3em]">
+        <span className="text-[10px] sm:text-xs tracking-[0.3em] text-zinc-400 font-medium ml-[0.3em]">
           SCROLL
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-500" />
+          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400" />
         </motion.div>
       </motion.div>
     </section>

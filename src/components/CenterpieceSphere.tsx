@@ -315,9 +315,32 @@ export function CenterpieceSphere() {
     // Scroll tracking for cinematic centerpiece journey
     let targetScrollY = 0;
     let currentScrollY = 0;
+    let animationFrameId = 0;
+    let startTime = performance.now();
+    let isLoopRunning = false;
+    let isTabVisible = !document.hidden;
+
+    function startLoop() {
+      if (isLoopRunning || prefersReducedMotion || !isTabVisible) return;
+      isLoopRunning = true;
+      animationFrameId = requestAnimationFrame(render);
+    }
+
+    function stopLoop() {
+      if (!isLoopRunning) return;
+      isLoopRunning = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
+    }
 
     const handleScroll = () => {
       targetScrollY = window.scrollY;
+      const heroH = height || window.innerHeight || 800;
+      if (targetScrollY < heroH * 1.35) {
+        startLoop();
+      }
       if (prefersReducedMotion) {
         currentScrollY = targetScrollY;
         render();
@@ -325,23 +348,6 @@ export function CenterpieceSphere() {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-
-    let animationFrameId = 0;
-    let startTime = performance.now();
-    let isVisible = true;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        isVisible = entry?.isIntersecting ?? false;
-        if (isVisible && !prefersReducedMotion) {
-          startTime = performance.now();
-          render();
-        }
-      },
-      { threshold: 0.05 }
-    );
-    observer.observe(container);
 
     function render() {
       if (!gl || !canvas) return;
@@ -356,24 +362,20 @@ export function CenterpieceSphere() {
         currentScrollY += (targetScrollY - currentScrollY) * 0.075;
       }
 
-      const heroH = window.innerHeight || 800;
+      const heroH = height || window.innerHeight || 800;
       const scrollProgress = prefersReducedMotion ? 0 : Math.max(0, currentScrollY / heroH);
 
-      const isMobile = window.innerWidth < 768;
+      const isMobile = width < 768;
       const baseRadius = isMobile ? 0.19 : 0.24;
 
-      // Natural 3D Parallax Scroll Choreography:
-      // When leaving Hero, the sphere smoothly floats UPWARD with natural parallax (in the direction of the scroll gesture),
-      // recedes along Z, scales down gracefully, and dissolves towards the light beam origin in the upper right.
+      // Natural 3D Parallax Scroll Choreography
       const scrollT = Math.min(1.0, scrollProgress * 1.2);
       const easedScroll = scrollT * scrollT * (3.0 - 2.0 * scrollT);
 
       const radius = baseRadius * (1.0 - easedScroll * 0.26);
       const centerOffsetX = isMobile ? 0.0 : easedScroll * 0.10;
-      // Floats upward (+Y) in natural parallax as user scrolls down
       const centerOffsetY = -0.12 + easedScroll * 0.28;
 
-      // Opacity: full in Hero (0 to 0.18), then smoothly dissolves before entering Capabilities & Projects
       let opacity = 1.0;
       if (scrollProgress > 0.18) {
         opacity = Math.max(0.0, 1.0 - (scrollProgress - 0.18) / 0.62);
@@ -395,34 +397,49 @@ export function CenterpieceSphere() {
         gl.uniform1f(uScrollProgress, scrollProgress);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
+      } else if (scrollProgress > 0.8) {
+        // Completely dissolved: sleep loop to conserve CPU/GPU
+        stopLoop();
+        return;
       }
 
-      if (!prefersReducedMotion && isVisible) {
+      if (!prefersReducedMotion && isTabVisible && isLoopRunning) {
         animationFrameId = requestAnimationFrame(render);
       }
     }
 
     const handleVisibilityChange = () => {
-      isVisible = !document.hidden;
-      if (isVisible && !prefersReducedMotion) {
-        render();
+      isTabVisible = !document.hidden;
+      const heroH = height || window.innerHeight || 800;
+      if (isTabVisible && window.scrollY < heroH * 1.35) {
+        startTime = performance.now();
+        startLoop();
+      } else {
+        stopLoop();
       }
     };
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
+    const handleContextLost = (e: Event) => {
+      e.preventDefault();
+      stopLoop();
+      setHasWebGL(false);
+    };
+    canvas.addEventListener("webglcontextlost", handleContextLost);
+
     if (prefersReducedMotion) {
       render();
     } else {
-      animationFrameId = requestAnimationFrame(render);
+      startLoop();
     }
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      stopLoop();
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      observer.disconnect();
+      canvas.removeEventListener("webglcontextlost", handleContextLost);
 
       if (gl) {
         gl.deleteBuffer(positionBuffer);

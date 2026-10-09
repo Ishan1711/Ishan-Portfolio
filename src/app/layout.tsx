@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,9 +12,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#050505",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Ishan Choudhary | Full-Stack Developer",
   description: "Portfolio of Ishan Choudhary, a Full-Stack Developer creating cinematic, bold, and premium web experiences.",
+  openGraph: {
+    title: "Ishan Choudhary | Full-Stack Developer",
+    description: "Portfolio of Ishan Choudhary, a Full-Stack Developer creating cinematic, bold, and premium web experiences.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ishan Choudhary | Full-Stack Developer",
+    description: "Portfolio of Ishan Choudhary, a Full-Stack Developer creating cinematic, bold, and premium web experiences.",
+  },
 };
 
 export default function RootLayout({

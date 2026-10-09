@@ -1,20 +1,20 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-export function Contact() {
-  const [currentYear, setCurrentYear] = useState<number | null>(null);
+const emptySubscribe = () => () => {};
+const getSnapshot = () => new Date().getFullYear();
+const getServerSnapshot = () => 2026;
 
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-  }, []);
+export function Contact() {
+  const currentYear = useSyncExternalStore(emptySubscribe, getSnapshot, getServerSnapshot);
 
   return (
     <section
       id="contact"
-      className="relative w-full bg-transparent text-white pt-32 lg:pt-48 pb-8 selection:bg-white/20 border-t border-zinc-900 flex flex-col min-h-screen"
+      className="relative w-full bg-transparent text-white pt-32 lg:pt-48 pb-8 selection:bg-white/20 border-t border-zinc-900/80 flex flex-col min-h-screen overflow-x-hidden"
     >
       <div className="flex-1 max-w-7xl mx-auto px-6 w-full flex flex-col justify-center">
         
@@ -41,7 +41,7 @@ export function Contact() {
             className="text-[12vw] sm:text-[10vw] lg:text-[8vw] font-extrabold tracking-tighter uppercase leading-[0.9]"
           >
             Have a good<br />
-            <span className="text-zinc-600">project in mind?</span>
+            <span className="text-zinc-400">project in mind?</span>
           </motion.h2>
 
           <motion.div
@@ -54,16 +54,17 @@ export function Contact() {
             {/* Email Link */}
             <a
               href="mailto:ishanchoudhary1711@gmail.com"
-              className="group flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-8 focus-visible:ring-offset-[#050505] rounded-lg"
+              aria-label="Send email to ishanchoudhary1711@gmail.com"
+              className="group flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-8 focus-visible:ring-offset-[#050505] rounded-lg max-w-full"
             >
-              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-zinc-500 font-semibold group-hover:text-zinc-400 transition-colors duration-300">
+              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-zinc-400 font-semibold group-hover:text-zinc-300 transition-colors duration-300">
                 Email
               </span>
-              <div className="flex items-center gap-4">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white group-hover:text-zinc-300 transition-colors duration-300">
+              <div className="flex items-center gap-3 sm:gap-4 max-w-full">
+                <span className="text-xl min-[360px]:text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white group-hover:text-zinc-300 transition-colors duration-300 break-all min-[360px]:break-normal">
                   ishanchoudhary1711<br className="sm:hidden" />@gmail.com
                 </span>
-                <ArrowUpRight className="w-6 h-6 lg:w-8 lg:h-8 text-zinc-500 group-hover:text-white transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-zinc-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0" />
               </div>
               <div className="w-full h-[1px] bg-zinc-800 group-hover:bg-zinc-500 transition-colors duration-500 mt-2" />
             </a>
@@ -73,16 +74,17 @@ export function Contact() {
               href="https://github.com/Ishan1711"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-8 focus-visible:ring-offset-[#050505] rounded-lg"
+              aria-label="Visit Ishan Choudhary's GitHub profile"
+              className="group flex flex-col gap-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-500 focus-visible:ring-offset-8 focus-visible:ring-offset-[#050505] rounded-lg max-w-full"
             >
-              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-zinc-500 font-semibold group-hover:text-zinc-400 transition-colors duration-300">
+              <span className="text-[10px] sm:text-xs tracking-[0.3em] uppercase text-zinc-400 font-semibold group-hover:text-zinc-300 transition-colors duration-300">
                 GitHub
               </span>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
                 <span className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white group-hover:text-zinc-300 transition-colors duration-300">
                   Ishan1711
                 </span>
-                <ArrowUpRight className="w-6 h-6 lg:w-8 lg:h-8 text-zinc-500 group-hover:text-white transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-zinc-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0" />
               </div>
               <div className="w-full h-[1px] bg-zinc-800 group-hover:bg-zinc-500 transition-colors duration-500 mt-2" />
             </a>
@@ -98,8 +100,8 @@ export function Contact() {
         transition={{ duration: 1, delay: 0.6 }}
         className="w-full mt-auto pt-32 px-6"
       >
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-zinc-900 pt-8 text-[10px] sm:text-xs tracking-[0.2em] uppercase text-zinc-600 font-medium">
-          <span>&copy; {currentYear || "2026"} Ishan Choudhary</span>
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-zinc-900 pt-8 text-[10px] sm:text-xs tracking-[0.2em] uppercase text-zinc-400 font-medium">
+          <span>&copy; {currentYear} Ishan Choudhary</span>
           <span>All Rights Reserved</span>
         </div>
       </motion.div>

@@ -16,13 +16,13 @@ export function Credentials() {
           {/* Left Column - Section Header */}
           <div className="lg:col-span-5 relative">
             <div className="lg:sticky lg:top-32 flex flex-col">
-              <motion.div
+                <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="text-xs tracking-[0.4em] text-zinc-500 font-medium uppercase">
+                <span className="text-xs tracking-[0.4em] text-zinc-400 font-medium uppercase">
                   04 / Credentials
                 </span>
               </motion.div>
@@ -36,7 +36,7 @@ export function Credentials() {
               >
                 Proof<br />
                 Of<br />
-                <span className="text-zinc-600">Learning</span>
+                <span className="text-zinc-400">Learning</span>
               </motion.h2>
             </div>
           </div>
@@ -49,33 +49,34 @@ export function Credentials() {
                 href={cred.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`View certificate for ${cred.title} issued by ${cred.issuer}`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 + idx * 0.1 }}
-                className="group flex flex-col sm:flex-row sm:items-center justify-between py-12 border-b border-zinc-900 hover:border-zinc-700 transition-colors duration-500"
+                className="group flex flex-col sm:flex-row sm:items-center justify-between py-10 sm:py-12 border-b border-zinc-900 hover:border-zinc-700 transition-colors duration-500 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:px-4"
               >
                 <div className="flex flex-col gap-4 sm:gap-6 sm:w-2/3 pr-8">
                   <div className="flex items-baseline gap-4">
-                    <span className="text-[10px] sm:text-xs text-zinc-600 font-mono">
+                    <span className="text-[10px] sm:text-xs text-zinc-400 font-mono">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white group-hover:text-zinc-300 transition-colors duration-300 leading-tight">
                       {cred.title}
                     </h3>
                   </div>
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm text-zinc-500 pl-8 sm:pl-10">
-                    <span className="uppercase tracking-widest text-[10px] sm:text-xs font-semibold text-zinc-400">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm text-zinc-400 pl-8 sm:pl-10">
+                    <span className="uppercase tracking-widest text-[10px] sm:text-xs font-semibold text-zinc-300">
                       {cred.issuer}
                     </span>
-                    <span className="hidden sm:block w-1 h-1 rounded-full bg-zinc-800" />
-                    <span className="text-xs">
+                    <span className="hidden sm:block w-1 h-1 rounded-full bg-zinc-700" />
+                    <span className="text-xs text-zinc-400">
                       {cred.date}
                     </span>
                   </div>
                 </div>
 
-                <div className="mt-8 sm:mt-0 flex items-center gap-2 sm:pl-10 sm:w-1/3 sm:justify-end text-zinc-500 group-hover:text-white transition-colors duration-300">
+                <div className="mt-8 sm:mt-0 flex items-center gap-2 sm:pl-10 sm:w-1/3 sm:justify-end text-zinc-400 group-hover:text-white transition-colors duration-300">
                   <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] font-semibold">
                     View Certificate
                   </span>

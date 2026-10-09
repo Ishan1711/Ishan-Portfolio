@@ -18,7 +18,7 @@ export function About() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="text-xs tracking-[0.4em] text-zinc-500 font-medium uppercase">
+            <span className="text-xs tracking-[0.4em] text-zinc-400 font-medium uppercase">
               01 / About
             </span>
           </motion.div>
@@ -32,7 +32,7 @@ export function About() {
           >
             <h2 className="text-[10vw] sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter uppercase leading-[0.9]">
               I don&apos;t just build<br/>
-              <span className="text-zinc-600">functionality.</span><br/>
+              <span className="text-zinc-400">functionality.</span><br/>
               I build experiences<br/>
               around it.
             </h2>
@@ -48,7 +48,7 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="text-lg md:text-xl lg:text-2xl text-zinc-400 font-light leading-relaxed max-w-2xl"
+                className="text-lg md:text-xl lg:text-2xl text-zinc-300 font-light leading-relaxed max-w-2xl"
               >
                 I am a Full-Stack Developer and Computer Science Engineering student dedicated to engineering modern, robust web applications. My focus is on writing clean, scalable code and continuously expanding my technical capabilities to deliver complete, well-crafted solutions.
               </motion.p>
@@ -60,17 +60,17 @@ export function About() {
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
                 className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4"
               >
-                <div className="flex flex-col gap-3">
-                  <span className="text-[10px] tracking-widest text-zinc-600 uppercase font-semibold">Focus</span>
-                  <span className="text-sm md:text-base text-zinc-300 font-medium">Full-Stack<br/>Development</span>
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-[10px] tracking-widest text-zinc-400 uppercase font-semibold">Focus</span>
+                  <span className="text-sm md:text-base text-zinc-200 font-medium">Full-Stack<br/>Development</span>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <span className="text-[10px] tracking-widest text-zinc-600 uppercase font-semibold">Education</span>
-                  <span className="text-sm md:text-base text-zinc-300 font-medium">B.Tech CSE<br/>Lovely Professional<br/>University</span>
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-[10px] tracking-widest text-zinc-400 uppercase font-semibold">Education</span>
+                  <span className="text-sm md:text-base text-zinc-200 font-medium">B.Tech CSE<br/>Lovely Professional<br/>University</span>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <span className="text-[10px] tracking-widest text-zinc-600 uppercase font-semibold">CGPA</span>
-                  <span className="text-sm md:text-base text-zinc-300 font-medium">8.59</span>
+                <div className="flex flex-col gap-2.5">
+                  <span className="text-[10px] tracking-widest text-zinc-400 uppercase font-semibold">CGPA</span>
+                  <span className="text-sm md:text-base text-zinc-200 font-medium">8.59</span>
                 </div>
               </motion.div>
             </div>
@@ -87,9 +87,9 @@ export function About() {
                     key={index}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.6 + (index * 0.15) }}
-                    className="text-lg sm:text-xl lg:text-2xl font-light tracking-tight text-zinc-500"
+                    className="text-lg sm:text-xl lg:text-2xl font-light tracking-tight text-zinc-400"
                   >
                     {principle}
                   </motion.div>
