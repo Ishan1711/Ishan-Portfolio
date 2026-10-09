@@ -6,7 +6,7 @@ export function About() {
   return (
     <section 
       id="about" 
-      className="relative w-full bg-[#050505] text-white py-24 sm:py-32 lg:py-48 overflow-hidden selection:bg-white/20"
+      className="relative w-full bg-transparent text-white py-24 sm:py-32 lg:py-48 overflow-hidden selection:bg-white/20"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col gap-16 md:gap-24 lg:gap-32">
@@ -15,7 +15,7 @@ export function About() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="text-xs tracking-[0.4em] text-zinc-500 font-medium uppercase">
@@ -27,7 +27,7 @@ export function About() {
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           >
             <h2 className="text-[10vw] sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter uppercase leading-[0.9]">
@@ -46,7 +46,7 @@ export function About() {
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
                 className="text-lg md:text-xl lg:text-2xl text-zinc-400 font-light leading-relaxed max-w-2xl"
               >
@@ -56,7 +56,7 @@ export function About() {
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
                 className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-4"
               >
@@ -103,3 +103,4 @@ export function About() {
     </section>
   );
 }
+

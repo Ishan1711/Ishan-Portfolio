@@ -1,4 +1,6 @@
-﻿import { Hero } from "@/sections/Hero";
+import { Hero } from "@/sections/Hero";
+import { BackgroundEnvironment } from "@/components/BackgroundEnvironment";
+import { CenterpieceSphere } from "@/components/CenterpieceSphere";
 import { About } from "@/sections/About";
 import { Capabilities } from "@/sections/Capabilities";
 import { Projects } from "@/sections/Projects";
@@ -8,7 +10,9 @@ import { Contact } from "@/sections/Contact";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#050505]">
+    <main className="flex min-h-screen flex-col bg-[#050505] relative isolate">
+      <BackgroundEnvironment />
+      <CenterpieceSphere />
       <Hero />
       <About />
       <Capabilities />
@@ -19,6 +23,3 @@ export default function Home() {
     </main>
   );
 }
-
-
-

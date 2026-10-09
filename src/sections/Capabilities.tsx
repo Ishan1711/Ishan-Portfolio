@@ -16,7 +16,7 @@ export function Capabilities() {
   return (
     <section
       id="capabilities"
-      className="relative w-full bg-[#050505] text-white py-24 sm:py-32 lg:py-48 selection:bg-white/20"
+      className="relative w-full bg-transparent text-white py-24 sm:py-32 lg:py-48 selection:bg-white/20"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
@@ -28,7 +28,7 @@ export function Capabilities() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <span className="text-xs tracking-[0.4em] text-zinc-500 font-medium uppercase">
@@ -39,7 +39,7 @@ export function Capabilities() {
                 <motion.h2
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                   className="mt-12 sm:mt-16 text-[12vw] sm:text-7xl md:text-8xl lg:text-8xl font-extrabold tracking-tighter uppercase leading-[0.9]"
                 >
@@ -53,7 +53,7 @@ export function Capabilities() {
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 1, delay: 0.3 }}
                 className="mt-16 lg:mt-auto h-24 sm:h-32 flex flex-col justify-end"
               >
@@ -108,7 +108,7 @@ export function Capabilities() {
                 key={category.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 + idx * 0.1 }}
                 className="flex flex-col gap-8 border-t border-zinc-900 pt-8"
               >
@@ -150,3 +150,4 @@ export function Capabilities() {
     </section>
   );
 }
+

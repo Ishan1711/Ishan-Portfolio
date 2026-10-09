@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -13,7 +13,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="relative w-full bg-[#050505] text-white py-24 sm:py-32 lg:py-48 selection:bg-white/20"
+      className="relative w-full bg-transparent text-white py-24 sm:py-32 lg:py-48 selection:bg-white/20"
     >
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
@@ -25,7 +25,7 @@ export function Projects() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <span className="text-xs tracking-[0.4em] text-zinc-500 font-medium uppercase">
@@ -36,7 +36,7 @@ export function Projects() {
                 <motion.h2
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
+                  viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                   className="mt-12 sm:mt-16 text-[12vw] sm:text-7xl md:text-8xl lg:text-8xl font-extrabold tracking-tighter uppercase leading-[0.9]"
                 >
@@ -50,8 +50,8 @@ export function Projects() {
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1, delay: 0.4 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 1, delay: 0.3 }}
                 className="mt-16 lg:mt-auto flex flex-col gap-4"
               >
                 <div className="flex items-center gap-4">
@@ -84,7 +84,7 @@ export function Projects() {
                 key={project.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 onTouchStart={() => setHoveredIndex(idx)}
@@ -97,13 +97,13 @@ export function Projects() {
                 {/* Visual Preview Area */}
                 <motion.div 
                   whileTap={{ scale: 0.98 }}
-                  className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-video bg-[#0a0a0a] border border-zinc-900 overflow-hidden group cursor-pointer"
+                  className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-video bg-[#0a0a0a] border border-zinc-900 rounded-sm overflow-hidden group cursor-pointer transition-all duration-500 hover:border-zinc-700 hover:shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
                 >
-                  <div className="absolute inset-0 transition-colors duration-700 group-hover:bg-[#0c0c0c]/50">
+                  <div className="absolute inset-0 transition-colors duration-700 group-hover:bg-[#0c0c0c]/40">
                     <ProjectVisual id={project.id} />
                   </div>
                   {/* Subtle hover overlay effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/20 to-transparent transition-opacity duration-700 pointer-events-none" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/30 via-transparent to-transparent transition-opacity duration-700 pointer-events-none" />
                 </motion.div>
 
                 {/* Project Header */}
@@ -174,6 +174,7 @@ export function Projects() {
     </section>
   );
 }
+
 
 
 

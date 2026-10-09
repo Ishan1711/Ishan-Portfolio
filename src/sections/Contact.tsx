@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -14,7 +14,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative w-full bg-[#050505] text-white pt-32 lg:pt-48 pb-8 selection:bg-white/20 border-t border-zinc-900 flex flex-col min-h-screen"
+      className="relative w-full bg-transparent text-white pt-32 lg:pt-48 pb-8 selection:bg-white/20 border-t border-zinc-900 flex flex-col min-h-screen"
     >
       <div className="flex-1 max-w-7xl mx-auto px-6 w-full flex flex-col justify-center">
         
@@ -22,7 +22,7 @@ export function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-16 lg:mb-24"
         >
@@ -36,7 +36,7 @@ export function Contact() {
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="text-[12vw] sm:text-[10vw] lg:text-[8vw] font-extrabold tracking-tighter uppercase leading-[0.9]"
           >
@@ -47,7 +47,7 @@ export function Contact() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
             className="flex flex-col sm:flex-row sm:items-end gap-12 sm:gap-24"
           >
@@ -107,4 +107,5 @@ export function Contact() {
     </section>
   );
 }
+
 

@@ -34,11 +34,21 @@ export function Hero() {
     });
   };
 
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const target = document.getElementById(targetId);
+    if (target) {
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: prefersReduced ? "auto" : "smooth", block: "start" });
+      window.history.pushState(null, "", `#${targetId}`);
+    }
+  };
+
   return (
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-[100svh] w-full flex flex-col items-center justify-center overflow-hidden bg-[#050505] selection:bg-white/20"
+      className="relative min-h-[100svh] w-full flex flex-col items-center justify-center overflow-hidden bg-transparent selection:bg-white/20"
     >
       {/* Background Noise Layer */}
       <div 
@@ -82,7 +92,7 @@ export function Hero() {
           transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
           className="text-center"
         >
-          <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-white leading-none">
+          <h1 className="text-[12vw] sm:text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter text-white leading-none drop-shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
             ISHAN CHOUDHARY
           </h1>
         </motion.div>
@@ -94,7 +104,7 @@ export function Hero() {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           className="mt-6 sm:mt-8"
         >
-          <h2 className="text-xs sm:text-sm md:text-base tracking-[0.4em] sm:tracking-[0.6em] text-zinc-400 font-medium ml-[0.4em] sm:ml-[0.6em]">
+          <h2 className="text-xs sm:text-sm md:text-base tracking-[0.4em] sm:tracking-[0.6em] text-zinc-300 font-semibold ml-[0.4em] sm:ml-[0.6em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
             FULL-STACK DEVELOPER
           </h2>
         </motion.div>
@@ -113,7 +123,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute text-base sm:text-xl md:text-2xl text-zinc-300 font-light text-center w-full"
+              className="absolute text-base sm:text-xl md:text-2xl text-zinc-200 font-light text-center w-full drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]"
             >
               {STATEMENTS[statementIndex]}
             </motion.p>
@@ -129,17 +139,19 @@ export function Hero() {
         >
           <a 
             href="#projects" 
-            className="group relative flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-white text-black text-xs sm:text-sm tracking-widest font-semibold overflow-hidden transition-all duration-500 hover:bg-zinc-200"
+            onClick={(e) => handleSmoothScroll(e, "projects")}
+            className="group relative flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-white text-black text-xs sm:text-sm tracking-widest font-semibold overflow-hidden transition-all duration-500 hover:bg-zinc-200 shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-pointer"
           >
             <span className="relative z-10">EXPLORE MY WORK</span>
             <ArrowRight className="relative z-10 w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" />
           </a>
           <a 
             href="#contact" 
-            className="group relative flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 text-white text-xs sm:text-sm tracking-widest font-medium overflow-hidden transition-all duration-500"
+            onClick={(e) => handleSmoothScroll(e, "contact")}
+            className="group relative flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 text-white text-xs sm:text-sm tracking-widest font-medium overflow-hidden transition-all duration-500 bg-black/40 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.6)] cursor-pointer"
           >
             <span className="absolute inset-0 border border-zinc-800 transition-colors duration-500 group-hover:border-zinc-500" />
-            <span className="relative z-10 text-zinc-400 transition-colors duration-500 group-hover:text-white">LET&apos;S CONNECT</span>
+            <span className="relative z-10 text-zinc-300 transition-colors duration-500 group-hover:text-white">LET&apos;S CONNECT</span>
           </a>
         </motion.div>
       </div>
