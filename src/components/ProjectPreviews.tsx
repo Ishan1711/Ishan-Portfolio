@@ -10,7 +10,7 @@ export function PhishScopePreview() {
         </div>
       </div>
       
-      <div className="flex-1 flex gap-4 overflow-hidden">
+      <div className="flex-1 flex flex-col sm:flex-row gap-4 overflow-hidden">
         <div className="flex-1 flex flex-col gap-2 min-w-0">
           <div className="text-zinc-600 mb-2">HEADER DATA</div>
           {[
@@ -26,7 +26,7 @@ export function PhishScopePreview() {
           ))}
         </div>
         
-        <div className="w-1/3 border-l border-zinc-900 pl-4 flex flex-col shrink-0">
+        <div className="w-full sm:w-1/3 border-t sm:border-t-0 sm:border-l border-zinc-900 pt-4 sm:pt-0 sm:pl-4 flex flex-col shrink-0">
           <div className="text-zinc-600 mb-4">RISK ANALYSIS PANEL</div>
           <div className="flex gap-2 mb-4 flex-wrap">
             <span className="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-500">SPF</span>
@@ -34,9 +34,9 @@ export function PhishScopePreview() {
             <span className="px-2 py-1 bg-zinc-900 border border-zinc-800 text-zinc-500">DMARC</span>
           </div>
           <div className="flex flex-col gap-1 text-zinc-500">
-            <span className="truncate">&gt; Indicator analysis</span>
-            <span className="truncate">&gt; Volume tracking</span>
-            <span className="truncate">&gt; Header evaluation</span>
+            <span className="whitespace-normal break-words">&gt; Indicator analysis</span>
+            <span className="whitespace-normal break-words">&gt; Volume tracking</span>
+            <span className="whitespace-normal break-words">&gt; Header evaluation</span>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@ export function ChemistryAIPreview() {
           </div>
         </div>
         
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide shrink-0">
+        <div className="flex flex-wrap gap-2 mb-6 shrink-0">
           {["General", "Organic", "Inorganic", "Reactions", "Comparison"].map((mode, i) => (
             <div key={i} className={cn(
               "px-3 py-1.5 rounded-full whitespace-nowrap text-[10px] uppercase tracking-wider border",
@@ -98,35 +98,39 @@ export function ChemistryAIPreview() {
 export function SecureSysPreview() {
   return (
     <div className="w-full h-full bg-[#020202] p-4 sm:p-6 font-mono flex flex-col text-xs sm:text-sm overflow-hidden">
-      <div className="flex justify-between items-center border-b border-zinc-800 pb-2 mb-4 shrink-0">
-        <div className="text-zinc-500 text-[10px] tracking-widest uppercase truncate pr-2">SecureSys Terminal Interface</div>
+      <div className="flex justify-between items-center border-b border-zinc-800 pb-2 mb-4 shrink-0 gap-2">
+        <div className="text-zinc-500 text-[10px] tracking-widest uppercase truncate pr-2">SecureSys Terminal</div>
         <div className="text-[8px] sm:text-[10px] text-zinc-600 uppercase tracking-widest shrink-0 text-right">
           Illustrative Preview &middot; Static Mockup
         </div>
       </div>
       
-      <div className="flex-1 flex flex-col gap-2 overflow-hidden text-zinc-400">
-        <div className="flex items-center gap-4 shrink-0">
-          <span className="text-zinc-600">ROLE_CONTEXT:</span>
-          <span className="text-white bg-zinc-800 px-2">SYS_ADMIN</span>
+      <div className="flex-1 flex flex-col gap-2 overflow-y-auto text-zinc-400 scrollbar-hide">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-4">
+            <span className="text-zinc-600">ROLE_CONTEXT:</span>
+            <span className="text-white bg-zinc-800 px-2">SYS_ADMIN</span>
+          </div>
         </div>
-        <div className="flex items-center gap-4 mb-4 shrink-0 overflow-hidden">
-          <span className="text-zinc-600 shrink-0">POLICY:</span>
-          <span className="text-zinc-500 truncate">[rwx] core_bin, [r-x] user_data</span>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4 shrink-0">
+          <div className="flex items-center gap-4">
+            <span className="text-zinc-600 shrink-0">POLICY:</span>
+            <span className="text-zinc-500 whitespace-normal break-words">[rwx] core_bin, [r-x] user_data</span>
+          </div>
         </div>
         
-        <div className="text-zinc-300 truncate shrink-0">
+        <div className="text-zinc-300 whitespace-normal break-words shrink-0">
           <span className="text-zinc-600">user@securesys:~$</span> [Illustrative terminal command]
         </div>
-        <div className="text-zinc-500 pl-4 border-l border-zinc-800 ml-2 shrink-0 truncate">
+        <div className="text-zinc-500 pl-4 border-l border-zinc-800 ml-2 shrink-0 whitespace-normal break-words">
           [MOCKUP] Visualizing access-control concept...<br/>
           [MOCKUP] Example policy applied...
         </div>
         
-        <div className="text-zinc-300 mt-2 truncate shrink-0">
+        <div className="text-zinc-300 mt-2 whitespace-normal break-words shrink-0">
           <span className="text-zinc-600">user@securesys:~$</span> [Simulated secondary action]
         </div>
-        <div className="text-zinc-500 pl-4 border-l border-zinc-800 ml-2 shrink-0 truncate">
+        <div className="text-zinc-500 pl-4 border-l border-zinc-800 ml-2 shrink-0 whitespace-normal break-words">
           [MOCKUP] Static RBAC visualization complete.
         </div>
         

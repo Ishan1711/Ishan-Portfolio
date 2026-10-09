@@ -97,7 +97,7 @@ export function Projects() {
                 {/* Visual Preview Area */}
                 <motion.div 
                   whileTap={{ scale: 0.98 }}
-                  className="relative w-full aspect-[16/10] sm:aspect-video bg-[#0a0a0a] border border-zinc-900 overflow-hidden group cursor-pointer"
+                  className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-video bg-[#0a0a0a] border border-zinc-900 overflow-hidden group cursor-pointer"
                 >
                   <div className="absolute inset-0 transition-colors duration-700 group-hover:bg-[#0c0c0c]/50">
                     <ProjectVisual id={project.id} />
@@ -174,4 +174,6 @@ export function Projects() {
     </section>
   );
 }
+
+
 
