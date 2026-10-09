@@ -1,7 +1,8 @@
-import { Hero } from "@/sections/Hero";
+﻿import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
 import { Capabilities } from "@/sections/Capabilities";
 import { Projects } from "@/sections/Projects";
+import { Credentials } from "@/sections/Credentials";
 
 export default function Home() {
   return (
@@ -10,6 +11,8 @@ export default function Home() {
       <About />
       <Capabilities />
       <Projects />
+      <Credentials />
     </main>
   );
 }
+
