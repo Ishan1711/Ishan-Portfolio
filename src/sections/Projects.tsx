@@ -1,10 +1,11 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { PROJECTS } from "@/data/projects";
 import { cn } from "@/lib/utils";
+import { ProjectVisual } from "@/components/ProjectPreviews";
 
 export function Projects() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -98,10 +99,8 @@ export function Projects() {
                   whileTap={{ scale: 0.98 }}
                   className="relative w-full aspect-[16/10] sm:aspect-video bg-[#0a0a0a] border border-zinc-900 overflow-hidden group cursor-pointer"
                 >
-                  <div className="absolute inset-0 bg-[#080808] transition-colors duration-700 group-hover:bg-[#0c0c0c] flex items-center justify-center">
-                    <span className="text-zinc-800 text-[10px] sm:text-xs tracking-[0.3em] uppercase font-medium">
-                      Visual Preview / Phase 9 Target
-                    </span>
+                  <div className="absolute inset-0 transition-colors duration-700 group-hover:bg-[#0c0c0c]/50">
+                    <ProjectVisual id={project.id} />
                   </div>
                   {/* Subtle hover overlay effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-t from-black/20 to-transparent transition-opacity duration-700 pointer-events-none" />
@@ -175,3 +174,4 @@ export function Projects() {
     </section>
   );
 }
+
